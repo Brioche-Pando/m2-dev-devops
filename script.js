@@ -10,26 +10,56 @@ const difficultySelect = document.getElementById('difficulty');
 
 // List of words for game
 const words = [
-  'sigh',
-  'tense',
-  'airplane',
-  'ball',
-  'pies',
-  'juice',
-  'warlike',
-  'bad',
-  'north',
-  'dependent',
-  'steer',
-  'silver',
-  'highfalutin',
-  'superficial',
-  'quince',
-  'eight',
-  'feeble',
-  'admit',
-  'drag',
-  'loving'
+    'larve',
+    'cadenas',
+    'ralenti',
+    'robinet',
+    'querelle',
+    'muscles',
+    'masseuse',
+    'lavage',
+    'goudron',
+    'millions',
+    'catapulte',
+    'ville',
+    'ordre',
+    'ninja',
+    'bulldozer',
+    'centre',
+    'sel',
+    'forme',
+    'largeur',
+    'flotter',
+    'sénat',
+    'pirate',
+    'sale',
+    'pieds',
+    'contre',
+    'art',
+    'sommeil',
+    'humain',
+    'australie',
+    'intelligent',
+    'magicien',
+    'imitation',
+    'pétale',
+    'festival',
+    'patin',
+    'révéler',
+    'terreurs',
+    'mal',
+    'mouette',
+    'souple',
+    'invitations',
+    'aigu',
+    'laver',
+    'plaques',
+    'grenier',
+    'catastrophe',
+    'sol',
+    'sculpteur',
+    'porter',
+    'ensorceler',
 ];
 
 // Init word
@@ -43,15 +73,15 @@ let time = 10;
 
 // Set difficulty to value in ls or medium
 let difficulty =
-  localStorage.getItem('difficulty') !== null
-    ? localStorage.getItem('difficulty')
-    : 'medium';
+    localStorage.getItem('difficulty') !== null
+        ? localStorage.getItem('difficulty')
+        : 'medium';
 
 // Set difficulty select value
 difficultySelect.value =
-  localStorage.getItem('difficulty') !== null
-    ? localStorage.getItem('difficulty')
-    : 'medium';
+    localStorage.getItem('difficulty') !== null
+        ? localStorage.getItem('difficulty')
+        : 'medium';
 
 // Focus on text on start
 text.focus();
@@ -61,42 +91,42 @@ const timeInterval = setInterval(updateTime, 1000);
 
 // Generate random word from array
 function getRandomWord() {
-  return words[Math.floor(Math.random() * words.length)];
+    return words[Math.floor(Math.random() * words.length)];
 }
 
 // Add word to DOM
 function addWordToDOM() {
-  randomWord = getRandomWord();
-  word.innerHTML = randomWord;
+    randomWord = getRandomWord();
+    word.innerHTML = randomWord;
 }
 
 // Update score
 function updateScore() {
-  score++;
-  scoreEl.innerHTML = score;
+    score++;
+    scoreEl.innerHTML = score;
 }
 
 // Update time
 function updateTime() {
-  time--;
-  timeEl.innerHTML = time + 's';
+    time--;
+    timeEl.innerHTML = time + 's';
 
-  if (time === 0) {
-    clearInterval(timeInterval);
-    // end game
-    gameOver();
-  }
+    if (time === 0) {
+        clearInterval(timeInterval);
+        // end game
+        gameOver();
+    }
 }
 
 // Game over, show end screen
 function gameOver() {
-  endgameEl.innerHTML = `
+    endgameEl.innerHTML = `
     <h1>Time ran out</h1>
     <p>Your final score is ${score}</p>
     <button onclick="location.reload()">Reload</button>
   `;
 
-  endgameEl.style.display = 'flex';
+    endgameEl.style.display = 'flex';
 }
 
 addWordToDOM();
@@ -105,25 +135,25 @@ addWordToDOM();
 
 // Typing
 text.addEventListener('input', e => {
-  const insertedText = e.target.value;
+    const insertedText = e.target.value;
 
-  if (insertedText === randomWord) {
-    addWordToDOM();
-    updateScore();
+    if (insertedText === randomWord) {
+        addWordToDOM();
+        updateScore();
 
-    // Clear
-    e.target.value = '';
+        // Clear
+        e.target.value = '';
 
-    if (difficulty === 'hard') {
-      time += 2;
-    } else if (difficulty === 'medium') {
-      time += 3;
-    } else {
-      time += 5;
+        if (difficulty === 'hard') {
+            time += 2;
+        } else if (difficulty === 'medium') {
+            time += 3;
+        } else {
+            time += 5;
+        }
+
+        updateTime();
     }
-
-    updateTime();
-  }
 });
 
 // Settings btn click
@@ -131,6 +161,6 @@ settingsBtn.addEventListener('click', () => settings.classList.toggle('hide'));
 
 // Settings select
 settingsForm.addEventListener('change', e => {
-  difficulty = e.target.value;
-  localStorage.setItem('difficulty', difficulty);
+    difficulty = e.target.value;
+    localStorage.setItem('difficulty', difficulty);
 });
